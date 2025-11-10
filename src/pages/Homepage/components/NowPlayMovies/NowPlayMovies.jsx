@@ -1,10 +1,11 @@
 import React from "react";
-import { usePopularMoviesQuery } from "../../../../hook/usePopularMovies";
+import { useNowPlayMovies } from "../../../../hook/useNowPlayMovies";
 import { Alert } from "react-bootstrap";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
 import MovieCard from "../MovieCard/MovieCard";
-import "./PopularMovieSlide.style.css";
+import "react-multi-carousel/lib/styles.css";
+import "./NowPlayMovies.style.css";
+import Carousel from "react-multi-carousel";
+
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
@@ -20,17 +21,17 @@ const responsive = {
   },
 };
 
-const PopularMovieSlide = () => {
-  const { data, isLoading, isError, error } = usePopularMoviesQuery();
+const NowPlayMovies = () => {
+  const { data, isLoading, isError, error } = useNowPlayMovies();
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return <h1>Loading..</h1>;
   }
   if (isError) {
     return <Alert variant="danger">{error.message}</Alert>;
   }
   return (
     <div>
-      <h3>인기 상영작</h3>
+      <h3>현재 상영작</h3>
       <Carousel infinite={true} centerMode={true} itemClass="movie-slider p-1" containerClass="carousel-container" responsive={responsive}>
         {data.results.map((movie, index) => (
           <MovieCard movie={movie} key={index} />
@@ -40,4 +41,4 @@ const PopularMovieSlide = () => {
   );
 };
 
-export default PopularMovieSlide;
+export default NowPlayMovies;

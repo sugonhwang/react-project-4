@@ -1,10 +1,11 @@
 import React from "react";
-import { usePopularMoviesQuery } from "../../../../hook/usePopularMovies";
+
 import { Alert } from "react-bootstrap";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import MovieCard from "../MovieCard/MovieCard";
-import "./PopularMovieSlide.style.css";
+import "./TopRateMovies.style.css";
+import { useTopRateMoviesQuery } from "../../../../hook/useTopRateMovies";
 const responsive = {
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
@@ -20,8 +21,8 @@ const responsive = {
   },
 };
 
-const PopularMovieSlide = () => {
-  const { data, isLoading, isError, error } = usePopularMoviesQuery();
+const TopRateMovies = () => {
+  const { data, isLoading, isError, error } = useTopRateMoviesQuery();
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
@@ -30,7 +31,7 @@ const PopularMovieSlide = () => {
   }
   return (
     <div>
-      <h3>인기 상영작</h3>
+      <h3>평점 좋은 영화</h3>
       <Carousel infinite={true} centerMode={true} itemClass="movie-slider p-1" containerClass="carousel-container" responsive={responsive}>
         {data.results.map((movie, index) => (
           <MovieCard movie={movie} key={index} />
@@ -40,4 +41,4 @@ const PopularMovieSlide = () => {
   );
 };
 
-export default PopularMovieSlide;
+export default TopRateMovies;
