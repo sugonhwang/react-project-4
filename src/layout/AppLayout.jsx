@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import netflixLogo from "../assets/netflix-logo.png";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 const AppLayout = () => {
+  const [keyword, setKeyword] = useState("");
+  const navigate = useNavigate();
+  const searchByKeyword = (event) => {
+    event.preventDefault();
+    navigate(`/movies?q=${keyword}`);
+    setKeyword(""); // 검색창 초기화
+  };
   return (
     <div>
       <Navbar variant="dark" expand="lg" style={{ backgroundColor: "#000000" }}>
@@ -21,8 +28,8 @@ const AppLayout = () => {
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/movies">Movies</Nav.Link>
             </Nav>
-            <Form className="d-flex">
-              <Form.Control type="search" placeholder="Search" className="me-2 dark-search" aria-label="Search" />
+            <Form className="d-flex" onSubmit={searchByKeyword}>
+              <Form.Control type="search" placeholder="Search" className="me-2 dark-search" aria-label="Search" value={keyword} onChange={(event) => setKeyword(event.target.value)} />
               <Button variant="outline-danger">Search</Button>
             </Form>
           </Navbar.Collapse>

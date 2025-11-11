@@ -21,3 +21,45 @@ body {
   border-color: #666 !important;
   box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.1) !important;
 }
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 40px 0;
+  gap: 8px;
+}
+
+.page-item {
+  transition: transform 0.2s ease;
+}
+
+.page-item:hover {
+  transform: scale(1.1);
+}
+
+.page-link {
+  display: block;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background-color: #141414; /* 넷플릭스 다크톤 */
+  color: #e5e5e5;
+  border: none;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.page-link:hover {
+  background-color: #e50914; /* 넷플릭스 빨강 */
+  color: white;
+}
+
+.active .page-link {
+  background-color: #e50914;
+  color: white;
+}
