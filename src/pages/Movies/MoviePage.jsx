@@ -128,7 +128,7 @@ const MoviePage = () => {
 
           {filteredAndSortedMovies.length === 0 && <Alert variant="warning">조건에 맞는 영화가 없습니다.</Alert>}
 
-          <ReactPaginate nextLabel="next >" onPageChange={handlePageClick} pageRangeDisplayed={1} marginPagesDisplayed={1} pageCount={Math.min(data?.total_pages, 500)} previousLabel="< prev" pageClassName="page-item" pageLinkClassName="page-link" previousClassName="page-item" previousLinkClassName="page-link" nextClassName="page-item" nextLinkClassName="page-link" breakLabel="..." breakClassName="page-item" breakLinkClassName="page-link" containerClassName="pagination" activeClassName="active" renderOnZeroPageCount={null} forcePage={page - 1} />
+          <ReactPaginate nextLabel="next >" onPageChange={handlePageClick} pageRangeDisplayed={3} marginPagesDisplayed={1} pageCount={Math.min(data?.total_pages, 500)} previousLabel="< prev" pageClassName="page-item" pageLinkClassName="page-link" previousClassName="page-item" previousLinkClassName="page-link" nextClassName="page-item" nextLinkClassName="page-link" breakLabel="..." breakClassName="page-item" breakLinkClassName="page-link" containerClassName="pagination" activeClassName="active" renderOnZeroPageCount={null} forcePage={page - 1} />
         </Col>
       </Row>
     </Container>

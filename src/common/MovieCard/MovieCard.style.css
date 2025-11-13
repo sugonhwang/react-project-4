@@ -1,44 +1,118 @@
+/* common/MovieCard/MovieCard.style.css */
 .movie-card {
-  width: 220px;
-  height: 330px;
-  background-size: cover;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
   cursor: pointer;
-  transition: 0.5s;
-}
-
-.overlay {
-  width: 100%;
-  height: 100%;
-  background: rgba(43, 41, 41, 0.9);
-  opacity: 0;
-  transition: all 1s;
-  color: white;
-  font-weight: bold;
-  overflow-wrap: break-word;
-}
-
-.overlay h1 {
-  font-size: 28px;
-}
-
-.overlay:hover {
-  opacity: 1;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+  margin-bottom: 20px;
+  background-color: #1a1a1a;
 }
 
 .movie-card:hover {
-  transform: scale(1.2) translateZ(20px);
-  z-index: 2;
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  z-index: 10;
 }
 
-.movie-stats {
+.movie-card-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: opacity 0.3s ease;
+}
+
+.movie-card-trailer {
+  width: 100%;
+  height: 300px;
+  background-color: #000;
+}
+
+.movie-card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.7) 70%, transparent 100%);
+  padding: 20px 15px 15px;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.movie-card:hover .movie-card-overlay {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.98) 0%, rgba(0, 0, 0, 0.85) 100%);
+}
+
+.movie-card-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.movie-card-genres {
   display: flex;
-  gap: 10px; /* 간격 */
-  margin-top: 10px;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 10px;
 }
 
-.movie-stats span {
-  background-color: rgba(0, 0, 0, 0.6); /* 반투명 배경 */
-  padding: 5px 10px;
-  border-radius: 5px;
-  font-size: 14px;
+.movie-card-genres .badge {
+  font-size: 0.75rem;
+  padding: 4px 8px;
+}
+
+.movie-card-info {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 15px;
+  flex-wrap: nowrap;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.info-icon {
+  font-size: 1rem;
+}
+
+.info-text {
+  font-weight: 500;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .movie-card-title {
+    font-size: 0.95rem;
+  }
+
+  .movie-card-info {
+    gap: 10px;
+    font-size: 0.85rem;
+  }
+
+  .movie-card-trailer {
+    height: 200px;
+  }
+}
+
+@media (max-width: 576px) {
+  .movie-card-info {
+    gap: 8px;
+    font-size: 0.8rem;
+  }
+
+  .info-item {
+    gap: 3px;
+  }
 }
