@@ -1,4 +1,3 @@
-// pages/MovieDetail/MovieDetailPage.jsx
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { Container, Row, Col, Badge, Alert, Spinner, Button, Modal } from "react-bootstrap";
@@ -8,6 +7,8 @@ import { useMovieReviewsQuery } from "../../hook/useMovieReviews";
 import { useMovieVideosQuery } from "../../hook/useMovieVideos";
 import ReviewItem from "../../pages/Homepage/components/ReviewItem/ReviewItem";
 import "./MovieDetailPage.style.css";
+import { useRecommendationsQuery } from "../../hook/useRecommendations";
+import MovieCard from "../../common/MovieCard/MovieCard";
 
 const MovieDetailPage = () => {
   const { id } = useParams();
@@ -16,6 +17,14 @@ const MovieDetailPage = () => {
   const { data: movie, isLoading, isError, error } = useMovieDetailQuery(id);
   const { data: reviews, isLoading: reviewsLoading } = useMovieReviewsQuery(id);
   const { data: trailer } = useMovieVideosQuery(id);
+  const { data: recommendations, isLoading: recommendationsLoading } = useRecommendationsQuery(id);
+
+  // 디버깅용 로그
+  console.log("Movie ID:", id);
+  console.log("Recommendations:", recommendations);
+  console.log("Recommendations Loading:", recommendationsLoading);
+
+  const defaultImage = "https://media.istockphoto.com/id/1396814518/ko/%EB%B2%A1%ED%84%B0/%EC%9D%B4%EB%AF%B8%EC%A7%80%EA%B0%80-%EA%B3%A7-%EC%B6%9C%EC%8B%9C-%EB%90%A0-%EC%98%88%EC%A0%95%EC%9E%85%EB%8B%88%EB%8B%A4-%EC%82%AC%EC%A7%84%EC%9D%B4-%EC%97%86%EC%9C%BC%EB%A9%B0-%EC%8D%B8%EB%84%A4%EC%9D%BC-%EC%9D%B4%EB%AF%B8%EC%A7%80%EB%A5%BC-%EC%82%AC%EC%9A%A9%ED%95%A0-%EC%88%98-%EC%97%86%EC%8A%B5%EB%8B%88%EB%8B%A4-%EB%B2%A1%ED%84%B0-%EC%9D%BC%EB%9F%AC%EC%8A%A4%ED%8A%B8-%EB%A0%88%EC%9D%B4-%EC%85%98.jpg?s=612x612&w=0&k=20&c=1h_M2LcQTtyn0tc_aE0CU8OBki5dYkNwiCANxmOBqQM=";
 
   if (isLoading) {
     return (
@@ -36,7 +45,7 @@ const MovieDetailPage = () => {
       autoplay: 1,
     },
   };
-
+  const posterUrl = movie.poster_path ? `https://image.tmdb.org/t/p/w500${movie.poster_path}` : defaultImage;
   return (
     <div className="movie-detail-page">
       {/* 배경 이미지 */}
@@ -51,7 +60,7 @@ const MovieDetailPage = () => {
         <Row>
           {/* 포스터 */}
           <Col lg={3} md={4} className="mb-4">
-            <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} className="movie-detail-poster" />
+            <img src={posterUrl} alt={movie.title} className="movie-detail-poster" onError={(e) => (e.target.src = defaultImage)} />
 
             {/* 예고편 버튼 */}
             {trailer && (
@@ -142,6 +151,27 @@ const MovieDetailPage = () => {
                 <p>{movie.overview || "줄거리 정보가 없습니다."}</p>
               </div>
             </div>
+          </Col>
+        </Row>
+        {/* 추천 영화 섹션 */}
+        <Row className="mt-5">
+          <Col>
+            <h3 className="section-title">추천 영화</h3>
+            {recommendationsLoading ? (
+              <div className="text-center">
+                <Spinner animation="border" variant="danger" />
+              </div>
+            ) : recommendations && recommendations.length > 0 ? (
+              <Row>
+                {recommendations.map((movie) => (
+                  <Col key={movie.id} lg={2} md={4} sm={6} xs={6}>
+                    <MovieCard movie={movie} />
+                  </Col>
+                ))}
+              </Row>
+            ) : (
+              <Alert variant="secondary">추천 영화가 없습니다.</Alert>
+            )}
           </Col>
         </Row>
 

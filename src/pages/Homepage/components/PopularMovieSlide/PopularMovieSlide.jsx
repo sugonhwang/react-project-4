@@ -1,22 +1,12 @@
+// components/PopularMovieSlide/PopularMovieSlide.jsx
 import React from "react";
-import { usePopularMoviesQuery } from "../../../../hook/usePopularMovies";
-import { Alert } from "react-bootstrap";
 import MovieSlider from "../../../../common/MovieSlider/MovieSlider";
-import { responsive } from "../../../../constants/responsive";
+import { responsive } from "../../../../constants/responsive"; // import 추가
 
-const PopularMovieSlide = () => {
-  const { data, isLoading, isError, error } = usePopularMoviesQuery();
-  if (isLoading) {
-    return <h1>Loading...</h1>;
-  }
-  if (isError) {
-    return <Alert variant="danger">{error.message}</Alert>;
-  }
-  return (
-    <div>
-      <MovieSlider title="인기 상영작" movies={data.results} responsive={responsive} />
-    </div>
-  );
+const PopularMovieSlide = ({ movies }) => {
+  if (!movies || movies.length === 0) return null;
+
+  return <MovieSlider title="인기 영화" movies={movies} responsive={responsive} />;
 };
 
 export default PopularMovieSlide;

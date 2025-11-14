@@ -1,24 +1,13 @@
+// components/NowPlayMovies/NowPlayMovies.jsx
 import React from "react";
-import { useNowPlayMovies } from "../../../../hook/useNowPlayMovies";
-import { Alert } from "react-bootstrap";
-import "react-multi-carousel/lib/styles.css";
-import "./NowPlayMovies.style.css";
 import MovieSlider from "../../../../common/MovieSlider/MovieSlider";
-import { responsive } from "../../../../constants/responsive";
+import "./NowPlayMovies.style.css";
+import { responsive } from "../../../../constants/responsive"; // import 추가
 
-const NowPlayMovies = () => {
-  const { data, isLoading, isError, error } = useNowPlayMovies();
-  if (isLoading) {
-    return <h1>Loading..</h1>;
-  }
-  if (isError) {
-    return <Alert variant="danger">{error.message}</Alert>;
-  }
-  return (
-    <div>
-      <MovieSlider title="현재 상영작" movies={data.results} responsive={responsive} />
-    </div>
-  );
+const NowPlayMovies = ({ movies }) => {
+  if (!movies || movies.length === 0) return null;
+
+  return <MovieSlider title="현재 상영중" movies={movies} responsive={responsive} />;
 };
 
 export default NowPlayMovies;

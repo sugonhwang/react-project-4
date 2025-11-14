@@ -1,76 +1,116 @@
+/* components/Banner/Banner.style.css */
 .banner {
-  height: 56vh;
-  background-position: left;
-  background-repeat: no-repeat;
+  width: 100%;
+  height: 500px;
   background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   position: relative;
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
 }
+
+/* 어두운 오버레이 */
 .banner::before {
   content: "";
-  background: linear-gradient(to top, black, transparent);
   position: absolute;
+  top: 0;
   left: 0;
-  height: 56vh;
   width: 100%;
-  position: absolute;
-}
-
-.banner-text-area {
-  width: 90%;
-  max-width: 600px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   height: 100%;
-  padding: 2rem;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.7) 40%, rgba(0, 0, 0, 0.3) 70%, transparent 100%);
+  z-index: 1;
+}
+
+.banner-content {
   position: relative;
-}
-
-.banner-text-area > * {
   z-index: 2;
+  max-width: 600px;
+  padding: 0 50px;
+  color: white;
 }
 
-.banner-text-area h1 {
-  font-size: clamp(0.875rem, 5vw, 2.5rem);
-  margin-bottom: 1rem;
+.banner-title {
+  font-size: 3.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
+  line-height: 1.2;
 }
 
-.banner-text-area p {
-  font-size: clamp(0.875rem, 2vw, 1rem);
+.banner-overview {
+  font-size: 1.2rem;
   line-height: 1.6;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.9);
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* 테블릿 */
-@media (min-width: 768px) {
-  .banner-text-area {
-    width: 60%;
-    padding: 32px;
+.banner-info {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.banner-info span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.9);
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .banner {
+    height: 400px;
   }
 
-  .banner-text-area p {
-    -webkit-line-clamp: 5;
+  .banner-content {
+    padding: 0 30px;
+    max-width: 500px;
+  }
+
+  .banner-title {
+    font-size: 2.5rem;
+  }
+
+  .banner-overview {
+    font-size: 1rem;
+    -webkit-line-clamp: 2;
+  }
+
+  .banner-info {
+    font-size: 1rem;
+    gap: 15px;
   }
 }
 
-/* 데스크탑 */
-@media (min-width: 1028px) {
-  .banner-text-area {
-    width: 36%;
+@media (max-width: 576px) {
+  .banner {
+    height: 350px;
   }
 
-  .banner-text-area p {
-    -webkit-line-clamp: 6;
+  .banner-content {
+    padding: 0 20px;
   }
-}
 
-@media (min-width: 1440px) {
-  .banner-text-area p {
-    display: block;
-    -webkit-line-clamp: unset;
+  .banner-title {
+    font-size: 2rem;
+  }
+
+  .banner-overview {
+    font-size: 0.9rem;
+  }
+
+  .banner-info {
+    font-size: 0.9rem;
+    gap: 10px;
   }
 }

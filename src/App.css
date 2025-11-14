@@ -22,6 +22,16 @@ body {
   box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.1) !important;
 }
 
+/* 스피너 중앙 정렬 */
+.spinner-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  width: 100%;
+}
+
+/* 페이지네이션 스타일 */
 .pagination {
   display: flex;
   justify-content: center;
@@ -30,9 +40,11 @@ body {
   padding: 0;
   margin: 40px 0;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
 .page-item {
+  background-color: #222;
   transition: transform 0.2s ease;
 }
 
@@ -44,7 +56,7 @@ body {
   display: block;
   padding: 10px 16px;
   border-radius: 8px;
-  background-color: #141414; /* 넷플릭스 다크톤 */
+  background-color: #141414;
   color: #e5e5e5;
   border: none;
   font-weight: 600;
@@ -52,14 +64,72 @@ body {
   transition:
     background-color 0.2s ease,
     color 0.2s ease;
+  cursor: pointer;
 }
 
 .page-link:hover {
-  background-color: #e50914; /* 넷플릭스 빨강 */
+  background-color: #e50914;
   color: white;
 }
 
 .active .page-link {
   background-color: #e50914;
   color: white;
+}
+
+.page-item.disabled .page-link {
+  background-color: #0d0d0d;
+  color: #666;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.page-item.disabled:hover {
+  transform: none;
+}
+
+.page-item.disabled .page-link:hover {
+  background-color: #0d0d0d;
+  color: #666;
+}
+
+/* 페이지네이션 반응형 디자인 */
+@media (max-width: 768px) {
+  .pagination {
+    gap: 6px;
+    margin: 30px 0;
+  }
+
+  .page-link {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 576px) {
+  .pagination {
+    gap: 4px;
+    margin: 20px 0;
+  }
+
+  .page-link {
+    padding: 6px 10px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .page-item:hover {
+    transform: scale(1.05);
+  }
+}
+
+@media (max-width: 400px) {
+  .pagination {
+    gap: 2px;
+  }
+
+  .page-link {
+    padding: 5px 8px;
+    font-size: 11px;
+  }
 }

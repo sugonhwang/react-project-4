@@ -5,7 +5,7 @@ const fetchNowPlayMovie = () => {
   return api.get(`/movie/now_playing`);
 };
 
-export const useNowPlayMovies = () => {
+export const useNowPlayMoviesQuery = () => {
   return useQuery({
     queryKey: ["movie-now_playing"],
     queryFn: fetchNowPlayMovie,
